@@ -1,3 +1,4 @@
+####!/usr/bin/env python3
 import argparse
 import subprocess
 import os
@@ -8,12 +9,13 @@ def checkDir(inDir, outDir, depth=0, max_depth=2147483647):
     global keepDirs
     global fileDict
     files=subprocess.run(["ls", inDir], capture_output=True, text=True).stdout.split();
+    print(inDir, outDir, files)
     for i in files:
         if os.path.isdir(inDir+"/"+i):
             checkDir(inDir+"/"+i, outDir+"/"+i, depth+1, max_depth);
         if os.path.isfile(inDir+"/"+i):
             if keepDirs:
-                subprocess.run(["mkdir", outDir])
+                subprocess.run(["mkdir", "-p", outDir])
                 subprocess.run(["cp", inDir+"/"+i, outDir+"/"+i])
             else:
                 global outDirFixed
@@ -35,11 +37,13 @@ arg.add_argument("out", type=str);
 arg.add_argument("--max_depth", type=int, default=None);
 args=arg.parse_args();
 
+#os.chdir(args.out)
+#os.chdir("-")
 outDirFixed=args.out
 fileDict={}
 
-subprocess.run(["rm", "-r", args.out])
-subprocess.run(["mkdir", args.out])
+
+subprocess.run(["mkdir", "-p", args.out])
 if args.max_depth==None:
     md=2147483647
     keepDirs=False
@@ -47,5 +51,5 @@ else:
     md=args.max_depth
     #keepDirs=True
 
-checkDir(os.getcwd()+"/"+args.inp, os.getcwd()+"/"+args.out, 0, md)
-os.chdir(args.out)
+checkDir(os.getcwd()+args.inp, os.getcwd()+args.out, 0, md)
+
