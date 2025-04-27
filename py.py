@@ -37,7 +37,7 @@ arg.add_argument("out", type=str);
 arg.add_argument("--max_depth", type=int, default=None);
 args=arg.parse_args();
 
-#os.chdir(args.out)
+os.chdir("/")
 #os.chdir("-")
 outDirFixed=args.out
 fileDict={}
