@@ -25,7 +25,6 @@ def checkDir(inDir, outDir, depth=0, max_depth=2147483647):
                         fn="".join(fn)
                     else:
                         fn=i+"1"
-                    print(fn)
                     subprocess.run(["mv", outDirFixed+"/"+i, outDirFixed+"/"+fn])
                 subprocess.run(["cp", inDir+"/"+i, "-t", outDirFixed])
                 fileDict[i]=fileDict.get(i, 0)+1
@@ -40,7 +39,6 @@ args=arg.parse_args();
 outDirFixed=args.out
 fileDict={}
 
-print("12345", args.inp, args.out, args.max_depth);
 subprocess.run(["rm", "-r", args.out])
 subprocess.run(["mkdir", args.out])
 if args.max_depth==None:
@@ -51,6 +49,3 @@ else:
     keepDirs=True
 
 checkDir(os.getcwd()+"/"+args.inp, os.getcwd()+"/"+args.out, 0, md)
-print(fileDict.get("cat.fish"))
-
-
