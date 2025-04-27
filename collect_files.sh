@@ -49,4 +49,4 @@ else:
     #keepDirs=True
 
 checkDir(os.getcwd()+"/"+args.inp, os.getcwd()+"/"+args.out, 0, md)
-subprocess.run(["cd", os.getcwd()+"/"+args.out])
+os.chdir(args.out)
