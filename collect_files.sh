@@ -24,7 +24,7 @@ def checkDir(inDir, outDir, depth=0, max_depth=2147483647):
                         fn.insert(i.find("."), str(fileDict.get(i)))
                         fn="".join(fn)
                     else:
-                        fn=i+"1"
+                        fn=i+str(fileDict.get(i))
                     subprocess.run(["mv", outDirFixed+"/"+i, outDirFixed+"/"+fn])
                 subprocess.run(["cp", inDir+"/"+i, "-t", outDirFixed])
                 fileDict[i]=fileDict.get(i, 0)+1
@@ -46,6 +46,6 @@ if args.max_depth==None:
     keepDirs=False
 else:
     md=args.max_depth
-    keepDirs=True
+    #keepDirs=True
 
 checkDir(os.getcwd()+"/"+args.inp, os.getcwd()+"/"+args.out, 0, md)
